@@ -1,0 +1,83 @@
+/* Custom Stylesheet */
+
+/* Force scroll bar */
+html {
+    overflow-y: scroll;
+}
+
+/* For sticky footer */
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+.background {
+    height: 300px;
+}
+
+.collapsible {
+    border: 0px solid black;
+}
+
+.collapsible-header, .collapsible-body {
+    border-bottom: 0px solid #333;
+}
+
+.background {
+    /* background: url("img/bg_darken.png") no-repeat center; */
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 2px #000;
+}
+
+.fb-avatar {
+    width: 50px;
+    height: 50px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 100%;
+    float: left;
+}
+
+.fb-label {
+    display: inline-block;
+}
+
+.logout-icon {
+    margin-right: 10px;
+}
+
+.row {
+    margin-bottom: 0;
+}
+
+.star-icon {
+    /* color: #B71C1C; */
+    color: #FF1E1E;
+}
+
+/*.star-icon:hover,*/ .stared {
+    color: yellow;
+}
+
+footer.page-footer {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+#dj-link:hover {
+    text-decoration: underline;
+}
