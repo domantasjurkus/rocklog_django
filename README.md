@@ -7,3 +7,4 @@ Webapp for scraping and saving rock.lt.
 2. Clone
 3. `$ pip install -r requirements.txt`
 4. `$ python manage.py runserver`
+5. Go to `localhost:8000`
