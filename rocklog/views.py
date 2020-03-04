@@ -4,13 +4,16 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
-from rocklog.models import Song
+from rocklog.models import StreamSong
+
 
 def index(request):
-    songs = Song.objects.all().order_by('-id')[:15]
+    stream = StreamSong.objects.all().order_by('-id')[:15]
     context = {
-        'songs': songs
+        'stream': stream
     }
+
+    print(context['stream'])
 
     return render(request, 'rocklog/index.html', context)
 
