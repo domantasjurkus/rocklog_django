@@ -8,3 +8,4 @@ media
 
 .vscode/
 venv*
+.env

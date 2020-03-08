@@ -7,7 +7,7 @@ urlpatterns = [
     # non-generic views
     path('', views.index, name='index'),
 
-    path('hamster/<str:artist>/<str:song>/', views.videoid, name='videoid'),
+    path('videoid/<str:artist>/<str:song>/', views.videoid, name='videoid'),
 
     # path('<int:question_id>/', views.detail, name='detailhamster'),
     # path('<int:question_id>/results/', views.results, name='results'),
