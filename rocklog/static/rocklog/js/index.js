@@ -61,7 +61,7 @@ function stopVideo() {
 
                 // Make a request to this app for the video id
                 $.ajax({
-                    url: "http://" + window.location.host + "/videoid/" + artist + "/" + song,
+                    url: encodeURI("http://" + window.location.host + "/videoid/" + artist + "/" + song),
                     // data: {
                     //     "song": song,
                     //     "artist": artist
