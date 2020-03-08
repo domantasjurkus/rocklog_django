@@ -118,20 +118,20 @@ function stopVideo() {
 
 })(jQuery);
 
-function getID(root, artist, song) {
+// function getID(root, artist, song) {
 
-    $.ajax({
-        url: root + "/videoid",
-        data: {
-            "song": song,
-            "artist": artist
-        },
-        success: function (id) {
-            return id;
-        }
-    });
+//     $.ajax({
+//         url: root + "/videoid",
+//         data: {
+//             "song": song,
+//             "artist": artist
+//         },
+//         success: function (id) {
+//             return id;
+//         }
+//     });
 
-}
+// }
 
 function markStars() {
 
