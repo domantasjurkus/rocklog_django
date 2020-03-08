@@ -61,11 +61,11 @@ function stopVideo() {
 
                 // Make a request to this app for the video id
                 $.ajax({
-                    url: documentRoot + "/videoid",
-                    data: {
-                        "song": song,
-                        "artist": artist
-                    },
+                    url: "http://" + window.location.host + "/videoid/" + artist + "/" + song,
+                    // data: {
+                    //     "song": song,
+                    //     "artist": artist
+                    // },
                     success: function (id) {
                         line.find(".video-container").append($("#player"));
 

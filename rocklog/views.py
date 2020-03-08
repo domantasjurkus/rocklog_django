@@ -5,6 +5,7 @@ from django.views import generic
 from django.utils import timezone
 
 from rocklog.models import StreamSong
+from rocklog.controllers.youtube import getYoutubeId
 
 
 def index(request):
@@ -16,8 +17,7 @@ def index(request):
 
 
 def videoid(request, artist, song):
-
-    return HttpResponse("You're looking at %s - %s" % (artist, song))
+    return HttpResponse(getYoutubeId(artist, song))
 
     # def detail(request, question_id):
     #     # try:
