@@ -1,19 +1,30 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.contrib import auth
 
 from rocklog.models import StreamSong
 from rocklog.controllers.youtube import getYoutubeId
 
 
+# @login_required
 def index(request):
     stream = StreamSong.objects.all().order_by('-id')[:15]
     context = {
         'stream': stream
     }
     return render(request, 'rocklog/index.html', context)
+
+
+# @login_required
+# def home(request):
+#     return render(request, 'rocklog/index.html')
+
+def hamster_logout(request):
+    return HttpResponse('hamster_logout')
 
 
 def videoid(request, artist, song):
@@ -27,11 +38,6 @@ def videoid(request, artist, song):
     #     question = get_object_or_404(Question, pk=question_id)
     #     return render(request, 'polls/detail.html', {'question': question})
 
-    # class DetailView(generic.DetailView):
-    #     model = Question
-    #     template_name = 'polls/detail.html'
-
-    #     def get_queryset(self):
     #         """
     #         Excludes any questions that aren't published yet.
     #         """

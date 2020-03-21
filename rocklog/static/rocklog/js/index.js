@@ -42,7 +42,6 @@ function stopVideo() {
 
         var documentRoot = $("#document_root").attr("content");
         var row = $(".collapsible-header");
-        console.log(documentRoot)
 
         // Attach onClick event for every row
         row.click(function (e) {
@@ -52,7 +51,6 @@ function stopVideo() {
 
             // If the bar is being closed
             if ($(this).hasClass("active")) {
-                console.log("closing");
                 try { player.pauseVideo(); }
                 catch (e) { }
 

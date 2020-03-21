@@ -1,7 +1,4 @@
 """rocklog_django URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -17,6 +14,22 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('', include('rocklog.urls')), # 'polls/' will be stripped off
-    path('admin/', admin.site.urls),
+    # rocklog
+    path('', include('rocklog.urls'), name='rocklog'),
+    # path('', include('social_django.urls', namespace='social')),
+    path('madmin/', admin.site.urls),
+
+    # simpleisbetter (works, but authentication process is cancelled)
+    # path(r'^oauth/', include('social_django.urls', namespace='social')),
+
+    # some other tutorial (works as above)
+    # path('social-auth/', include('social_django.urls', namespace="social")),
+
+    # official social docs (works)
+    path('auth/', include('social_django.urls', namespace='social')),
+    # path('logout/', LogoutView.as_view(), name='logout'),
 ]
+
+# LOGIN_URL = 'login'
+# LOGOUT_URL = 'logout'
+# LOGIN_REDIRECT_URL = ''

@@ -38,23 +38,26 @@
             </div>
         </div>
 
-        <div class="row grey darken-4" style="min-height:500px">
+        {{ user.first_name }}
+        {{ user.is_authenticated }}
+
+        <div class=" row grey darken-4" style="min-height:500px">
             <div class="col s12 m10 l5 offset-m1 offset-l1">
                 <br />
                 <ul class="collapsible grey darken-4" data-collapsible="accordion">
                     <ul class="collection">
                         <li class="collection-item grey darken-3 grey-text">
-                            {% if 'logged_in' %}
-                            <p class="grey-text">&nbspPrisijunk su <a href="redirect">Facebook</a> ir išsaugok dainas!
-                            </p>
+                            {% if user.is_authenticated %}
+                                {# <div class="fb-avatar" style="background-image: url('{{ $fb_user->getAvatar() }}');"></div> #}
+                                <p class="center-align">
+                                    {# <a href="{{ $link }}">{{ $link_text }}</a> #}
+                                    <a href="{% url 'rocklog:hamster_logout' %}" class="secondary-content">
+                                        <i class="material-icons grey-text logout-icon">input</i>
+                                    </a>
+                                </p>
                             {% else %}
-                            {# <div class="fb-avatar" style="background-image: url('{{ $fb_user->getAvatar() }}');"></div> #}
-                            <p class="center-align">
-                                {# <a href="{{ $link }}">{{ $link_text }}</a> #}
-                                <a href="logout" class="secondary-content">
-                                    <i class="material-icons grey-text logout-icon">input</i>
-                                </a>
-                            </p>
+                                {# <p class="grey-text">&nbspPrisijunk su <a href="{% url 'social:begin' 'facebook' %}">Facebook</a> ir išsaugok dainas!</p> #}
+                                <p class="grey-text">&nbspPrisijunk su <a href="{% url 'social:begin' 'google-oauth2' %}">Google</a> ir išsaugok dainas!</p> 
                             {% endif %}
                         </li>
                     </ul>

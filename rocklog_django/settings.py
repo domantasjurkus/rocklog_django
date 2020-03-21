@@ -22,9 +22,8 @@ environ.Env.read_env()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# django key
 SECRET_KEY = env('DJANGO_PRODUCTION_KEY')
-YOUTUBE_API_KEY = env('YOUTUBE_API_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rocklog.apps.RocklogConfig',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'rocklog_django.urls'
@@ -70,6 +71,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -128,3 +131,31 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = "/home/domantasjurkus/rocklog/static"
+
+# social django
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # admin panel
+    # 'social_core.backends.github.GithubOAuth2',
+    # 'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+)
+
+# youtube
+YOUTUBE_API_KEY = env('YOUTUBE_API_KEY')
+
+# social
+SOCIAL_AUTH_FACEBOOK_KEY = env('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = env('SOCIAL_AUTH_FACEBOOK_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '695835623085-m5p8l3ie3097pc0v6vi43rtboihamf33.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'p0CBiCMl4kDg5J1kYkSFRZ2p'
+
+# login facebook
+# LOGIN_URL = 'login'
+
+# login google
+LOGIN_URL = '/auth/login/google-oauth2/'
+LOGIN_REDIRECT_URL = '/'
+
+# LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = '/'
