@@ -1,16 +1,17 @@
 from django.urls import path
+from django.contrib.auth.views import LogoutView
 
 from . import views
 
 app_name = 'rocklog'
+
 urlpatterns = [
-    # non-generic views
     path('', views.index, name='index'),
+    # path('index/', views.index, name='index'),
+    # path('home', views.index, name='home'),
+    # path('logout', views.logout),
 
     path('videoid/<str:artist>/<str:song>/', views.videoid, name='videoid'),
-
-    # path('<int:question_id>/', views.detail, name='detailhamster'),
-    # path('<int:question_id>/results/', views.results, name='results'),
-    # path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
-    # path('<int:question_id>/vote/', views.vote, name='vote')
+    # path('logout/', views.hamster_logout, name='hamster_logout'),
+    path(r'^logout/$', LogoutView.as_view(), {'next_page': '/', 'redirect_field_name': '/', 'template_name': '/'}, name='hamster_logout'),
 ]
