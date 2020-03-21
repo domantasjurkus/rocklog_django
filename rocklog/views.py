@@ -12,7 +12,7 @@ from rocklog.controllers.youtube import getYoutubeId
 
 # @login_required
 def index(request):
-    stream = StreamSong.objects.all().order_by('-id')[:15]
+    stream = StreamSong.objects.all().order_by('-date')[:15]
     context = {
         'stream': stream
     }
