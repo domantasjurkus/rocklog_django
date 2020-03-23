@@ -157,3 +157,6 @@ LOGIN_REDIRECT_URL = '/'
 
 # LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = '/'
+
+# Enables iframe from rocklog.info.tm to pythonanywhere
+X_FRAME_OPTIONS = 'ALLOW'
