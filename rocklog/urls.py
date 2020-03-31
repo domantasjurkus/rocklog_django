@@ -13,5 +13,5 @@ urlpatterns = [
     path('saved', views.saved_songs, name='saved'),
     path('videoid/<str:artist>/<str:song>/', views.videoid, name='videoid'),
     # path('logout/', views.hamster_logout, name='hamster_logout'),
-    path(r'^logout/$', LogoutView.as_view(), name='hamster_logout'),
+    path('logout', LogoutView.as_view(), name='hamster_logout'),
 ]
