@@ -45,13 +45,13 @@
                     <ul class="collection">
                         <li class="collection-item grey darken-3 grey-text">
                             {% if user.is_authenticated %}
-                            <p style="float: left;">{{ user.first_name }}</p>
-                            <p class="center-align">
-                                <a href="/">Išsaugotos dainos</a>
-                                <a href="{% url 'rocklog:hamster_logout' %}" class="secondary-content">
-                                    <i class="material-icons grey-text logout-icon">input</i>
-                                </a>
-                            </p>  
+                                <p style="float: left;">{{ user.first_name }}</p>
+                                <p class="center-align">
+                                    <a href="{{ header_link_url }}">{{ header_link_text }}</a>
+                                    <a href="{% url 'rocklog:hamster_logout' %}" class="secondary-content">
+                                        <i class="material-icons grey-text logout-icon">input</i>
+                                    </a>
+                                </p>  
                             {% else %}
                                 <p class="grey-text">&nbspPrisijunk su <a href="{% url 'social:begin' 'google-oauth2' %}">Google</a> ir išsaugok dainas!</p>
                             {% endif %}
@@ -59,26 +59,26 @@
                     </ul>
                     <br />
                     {% for stream_entry in stream %}
-                    <li>
-                        <div class="song collapsible-header red darken-4 white-text">
-                            <b class="artist">{{ stream_entry.song.artist }}</b> - <span
-                                class="song">{{ stream_entry.song.song }}</span>
-                            <a href="#!" class="secondary-content" id="id">
-                                {# <i class="material-icons star-icon @if($song->saved) stared @endif">grade</i> #}
-                                <i class="material-icons star-icon">grade</i>
-                            </a>
-                        </div>
-                        <div class="collapsible-body grey darken-4">
-                            <div class="video-container" id="video-container"></div>
-                        </div>
-                    </li>
+                        <li>
+                            <div class="song collapsible-header red darken-4 white-text">
+                                <b class="artist">{{ stream_entry.song.artist }}</b> - <span
+                                    class="song">{{ stream_entry.song.song }}</span>
+                                <a href="#!" class="secondary-content" id="id">
+                                    {# <i class="material-icons star-icon @if($song->saved) stared @endif">grade</i> #}
+                                    <i class="material-icons star-icon">grade</i>
+                                </a>
+                            </div>
+                            <div class="collapsible-body grey darken-4">
+                                <div class="video-container" id="video-container"></div>
+                            </div>
+                        </li>
                     {% endfor %}
                     {% if stream|length == 0 %}
-                    <ul class="collection">
-                        <li class="collection-item grey darken-3 grey-text">
-                            <p class="grey-text">Nėra išsaugotų dainų</p>
-                        </li>
-                    </ul>
+                        <ul class="collection">
+                            <li class="collection-item grey darken-3 grey-text">
+                                <p class="grey-text">Nėra išsaugotų dainų</p>
+                            </li>
+                        </ul>
                     {% endif %}
 
                 </ul>

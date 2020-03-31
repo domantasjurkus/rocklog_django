@@ -14,7 +14,18 @@ from rocklog.controllers.youtube import getYoutubeId
 def index(request):
     stream = StreamSong.objects.all().order_by('-date')[:15]
     context = {
+        'header_link_text': 'Išsaugotos dainos',
+        'header_link_url': 'saved',
         'stream': stream
+    }
+    return render(request, 'rocklog/index.html', context)
+
+
+def saved_songs(request):
+    context = {
+        'header_link_text': 'Visos dainos',
+        'header_link_url': '/',
+        'stream': [],
     }
     return render(request, 'rocklog/index.html', context)
 
