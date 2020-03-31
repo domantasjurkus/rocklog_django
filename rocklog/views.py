@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
-from rocklog.models import StreamSong
+from rocklog.models import Song, StreamSong, SavedSong
 from rocklog.controllers.youtube import getYoutubeId
 
 
@@ -21,11 +21,14 @@ def index(request):
     return render(request, 'rocklog/index.html', context)
 
 
+@login_required
 def saved_songs(request):
+    user_id = request.user.id
+    saved_songs = SavedSong.objects.all().filter(user=user_id)
     context = {
         'header_link_text': 'Visos dainos',
         'header_link_url': '/',
-        'stream': [],
+        'stream': saved_songs,
     }
     return render(request, 'rocklog/index.html', context)
 
