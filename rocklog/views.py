@@ -67,10 +67,6 @@ def toggle_save_song(request, song_id):
     return HttpResponse('song saved/removed')
 
 
-def hamster_logout(request):
-    return HttpResponse('hamster_logout')
-
-
 def videoid(request, artist, song):
     return HttpResponse(getYoutubeId(artist, song))
 
