@@ -63,13 +63,12 @@
                             <div class="song collapsible-header red darken-4 white-text">
                                 <b class="artist">{{ stream_entry.song.artist }}</b> -
                                 <span class="song">{{ stream_entry.song.song }}</span>
-                                <a href="#!" class="secondary-content" id="id">
-                                
-                                {% if stream_entry.saved %}
-                                    <i class="material-icons star-icon stared">grade</i>
-                                {% else %}
-                                    <i class="material-icons star-icon">grade</i>
-                                {% endif %}
+                                <a href="javascript:;" class="secondary-content" id="{{ stream_entry.song.id }}">
+                                    {% if stream_entry.saved %}
+                                        <i class="material-icons star-icon stared">grade</i>
+                                    {% else %}
+                                        <i class="material-icons star-icon">grade</i>
+                                    {% endif %}
                                 </a>
                             </div>
                             <div class="collapsible-body grey darken-4">

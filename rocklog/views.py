@@ -42,7 +42,7 @@ def index(request):
 @login_required
 def saved_songs(request):
     user_id = request.user.id
-    saved_songs = SavedSong.objects.all().filter(user=user_id)
+    saved_songs = SavedSong.objects.filter(user=user_id)
     context = {
         'header_link_text': 'Visos dainos',
         'header_link_url': '/',
@@ -51,9 +51,21 @@ def saved_songs(request):
     return render(request, 'rocklog/index.html', context)
 
 
-# @login_required
-# def home(request):
-#     return render(request, 'rocklog/index.html')
+@login_required
+def toggle_save_song(request, song_id):
+    user_id = request.user.id
+
+    saved_song = SavedSong.objects.filter(user_id=user_id).filter(song_id=song_id)
+    is_song_saved = len(saved_song) > 0
+    
+    if (is_song_saved):
+        saved_song.delete()
+    else:
+        s = SavedSong(song_id=song_id, user_id=user_id)
+        s.save()
+
+    return HttpResponse('song saved/removed')
+
 
 def hamster_logout(request):
     return HttpResponse('hamster_logout')

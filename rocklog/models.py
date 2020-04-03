@@ -30,7 +30,6 @@ class StreamEntry(models.Model):
 
 
 class SavedSong(models.Model):
-    date = models.DateTimeField()
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
