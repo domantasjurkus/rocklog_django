@@ -6,13 +6,25 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
-from rocklog.models import Song, StreamSong, SavedSong
+from rocklog.models import Song, StreamEntry, SavedSong
 from rocklog.controllers.youtube import getYoutubeId
+
+
+def decorate_stream_with_saved(stream):
+    for stream_entry in stream:
+        stream_entry.saved = False
+
+    return stream
 
 
 # @login_required
 def index(request):
-    stream = StreamSong.objects.all().order_by('-date')[:15]
+    stream = StreamEntry.objects.all().order_by('-date')[:15]
+    stream = decorate_stream_with_saved(stream)
+
+    # if request.user.id:
+    #     user_saved_songs = SavedSong.objects.filter(user__exact=request.user.id)
+
     context = {
         'header_link_text': 'Išsaugotos dainos',
         'header_link_url': 'saved',
