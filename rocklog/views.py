@@ -10,20 +10,26 @@ from rocklog.models import Song, StreamEntry, SavedSong
 from rocklog.controllers.youtube import getYoutubeId
 
 
-def decorate_stream_with_saved(stream):
+def decorate_with_saved_all(stream):
     for stream_entry in stream:
-        stream_entry.saved = False
-
+        stream_entry.saved = True
     return stream
 
 
-# @login_required
-def index(request):
-    stream = StreamEntry.objects.all().order_by('-date')[:15]
-    stream = decorate_stream_with_saved(stream)
+def decorate_with_saved_user(stream, saved_songs):
+    for entry in stream:
+        for saved_song in saved_songs:
+            if entry.song_id == saved_song.song_id:
+                entry.saved = True
+    return stream
 
-    # if request.user.id:
-    #     user_saved_songs = SavedSong.objects.filter(user__exact=request.user.id)
+def index(request):
+    stream = StreamEntry.objects.select_related('song').order_by('-date')[:15]
+    stream = stream.select_related('song')
+
+    if request.user.id:
+        saved_songs = SavedSong.objects.filter(user_id=request.user.id).select_related('song')
+        stream = decorate_with_saved_user(stream, saved_songs)
 
     context = {
         'header_link_text': 'Išsaugotos dainos',
@@ -40,7 +46,7 @@ def saved_songs(request):
     context = {
         'header_link_text': 'Visos dainos',
         'header_link_url': '/',
-        'stream': saved_songs,
+        'stream': decorate_with_saved_all(saved_songs),
     }
     return render(request, 'rocklog/index.html', context)
 
