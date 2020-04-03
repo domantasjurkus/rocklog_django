@@ -18,9 +18,12 @@ class Song(models.Model):
     #     return super(Song, self).save()
 
 
-class StreamSong(models.Model):
+class StreamEntry(models.Model):
     date = models.DateTimeField()
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Stream Entries"
 
     def __str__(self):
         return f"{self.date} - {self.song.artist} - {self.song.song}"
