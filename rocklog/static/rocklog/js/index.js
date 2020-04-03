@@ -7,6 +7,8 @@ var done = false;
     makeNewPlayer('vjqtHxuvwVg');
 }*/
 
+var PROTOCOL = "https://";
+
 function makeNewPlayer(id) {
     player = new YT.Player('player', {
         height: '390',
@@ -59,7 +61,7 @@ function stopVideo() {
 
                 // Make a request to this app for the video id
                 $.ajax({
-                    url: encodeURI("http://" + window.location.host + "/videoid/" + artist + "/" + song),
+                    url: encodeURI(PROTOCOL + window.location.host + "/videoid/" + artist + "/" + song),
                     // data: {
                     //     "song": song,
                     //     "artist": artist
@@ -91,7 +93,7 @@ function stopVideo() {
 
             // Save song
             $.ajax({
-                url: encodeURI("http://" + window.location.host + "/toggle_save_song/" + song_id),
+                url: encodeURI(PROTOCOL + window.location.host + "/toggle_save_song/" + song_id),
                 success: function (data) {
 
                 }, error: function (data) {
