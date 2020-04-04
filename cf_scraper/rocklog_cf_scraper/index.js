@@ -19,13 +19,23 @@ function split_out_datetime(html) {
 }
 
 // HTTPBasicAuth
-async function send_to_rocklog(payload) {
-  const user = ROCKLOG_UPLOAD_USERNAME
-  const password = ROCKLOG_UPLOAD_PASSWORD
+// async function send_to_rocklog(payload) {
+//   const user = ROCKLOG_UPLOAD_USERNAME
+//   const password = ROCKLOG_UPLOAD_PASSWORD
 
-  const URL = `https://${user}:${password}@${ROCKLOG_DOMAIN}/${UPLOAD_PATH}/${payload}`
+//   const URL = `https://${user}:${password}@${ROCKLOG_DOMAIN}/${UPLOAD_PATH}/${payload}`
+//   console.log(URL)
+//   await fetch(URL)
+// }
+
+async function send_to_rocklog(payload) {
+  const URL = `https://${ROCKLOG_DOMAIN}/${UPLOAD_PATH}/${payload}`
   console.log(URL)
-  await fetch(URL)
+  await fetch(URL, {
+    headers: {
+      'Authorization': `Basic ${ROCKLOG_AUTH_BASE64}`
+    }
+  })
 }
 
 async function handleRequest(request) {
