@@ -1,0 +1,6 @@
+name = "rocklog_cf_scraper"
+type = "javascript"
+account_id = "b8ec861f547f18d8eb020c14340468f9"
+workers_dev = true
+route = ""
+zone_id = ""
