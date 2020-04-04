@@ -7,7 +7,7 @@ var done = false;
     makeNewPlayer('vjqtHxuvwVg');
 }*/
 
-var PROTOCOL = "https://";
+var PROTOCOL = `${window.location.protocol}//`;
 
 function makeNewPlayer(id) {
     player = new YT.Player('player', {
