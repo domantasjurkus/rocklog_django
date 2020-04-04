@@ -30,7 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    'domantasjurkus.pythonanywhere.com'
+    'domantasjurkus.pythonanywhere.com',
+    'rocklog.pythonanywhere.com',
 ]
 
 
