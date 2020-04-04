@@ -1,0 +1,14 @@
+{
+  "name": "rocklog_cf_scrapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cloudflare/wrangler": "^1.8.4"
+  }
+}
