@@ -93,7 +93,7 @@ function stopVideo() {
 
             // Save song
             $.ajax({
-                url: encodeURI(PROTOCOL + window.location.host + "/toggle_save_song/" + song_id),
+                url: encodeURI(PROTOCOL + window.location.host + "/toggle_save/" + song_id),
                 success: function (data) {
 
                 }, error: function (data) {

@@ -7,9 +7,11 @@ app_name = 'rocklog'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('saved', views.saved_songs, name='saved'),
+    path('upload/<str:payload>', views.upload_new_song),
     path('videoid/<str:artist>/<str:song>/', views.videoid, name='videoid'),
-    path('toggle_save_song/<int:song_id>', views.toggle_save_song, name='save_song'),
+
+    path('saved', views.saved_songs, name='saved'),
+    path('toggle_save/<int:song_id>', views.toggle_save, name='save_song'),
 
     path('logout', LogoutView.as_view(), name='logout'),
 ]
