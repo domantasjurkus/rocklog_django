@@ -1,12 +1,46 @@
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request))
-})
-/**
- * Respond with hello worker text
- * @param {Request} request
- */
+const ROCKFM_URL = 'https://rockfm.lt/dainu-paieska/'
+const ROCKLOG_URL = 'https://rocklog.pythonanywhere.com/upload'
+
+async function fetch_rockfm() {
+  return fetch(ROCKFM_URL)
+}
+
+function split_out_entry(html) {
+  const a = html.split('<div class="post_title">')[1]
+  const b = a.split('</div>')[0]
+  return b.trim()
+}
+
+function split_out_datetime(html) {
+  const a = html.split('<div class="post_num">\n<p>')[1]
+  const b = a.split('</p>\n</div>')[0]
+  return b.trim()
+}
+
+function send_to_rocklog() {
+  // const URL = 
+}
+
 async function handleRequest(request) {
-  return new Response('Hello worker!', {
+  const a = await fetch_rockfm()
+  const html = await a.text()
+
+  const entry = split_out_entry(html)
+  const datetime = split_out_datetime(html)
+
+  const artist = entry.split(' - ')[0]
+  const song = entry.split(' - ')[1]
+  const date = datetime.split(' | ')[0]
+  const hour = datetime.split(' | ')[1]
+
+  const payload = `${artist}\n${song}\n${date}\n${hour}`
+  const encoded = btoa(payload)
+  
+  return new Response(encoded, {
     headers: { 'content-type': 'text/plain' },
   })
 }
+
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
