@@ -1,5 +1,6 @@
-const ROCKFM_URL = 'https://rockfm.lt/dainu-paieska/'
-const ROCKLOG_URL = 'https://rocklog.pythonanywhere.com/upload'
+const ROCKFM_URL = 'https://rockfm.lt/dainu-paieska'
+const ROCKLOG_DOMAIN = 'rocklog.pythonanywhere.com'
+const UPLOAD_PATH = 'upload'
 
 async function fetch_rockfm() {
   return fetch(ROCKFM_URL)
@@ -17,8 +18,14 @@ function split_out_datetime(html) {
   return b.trim()
 }
 
-function send_to_rocklog() {
-  // const URL = 
+// HTTPBasicAuth
+async function send_to_rocklog(payload) {
+  const user = ROCKLOG_UPLOAD_USERNAME
+  const password = ROCKLOG_UPLOAD_PASSWORD
+
+  const URL = `https://${user}:${password}@${ROCKLOG_DOMAIN}/${UPLOAD_PATH}/${payload}`
+  console.log(URL)
+  await fetch(URL)
 }
 
 async function handleRequest(request) {
@@ -35,6 +42,8 @@ async function handleRequest(request) {
 
   const payload = `${artist}\n${song}\n${date}\n${hour}`
   const encoded = btoa(payload)
+
+  await send_to_rocklog(encoded)
   
   return new Response(encoded, {
     headers: { 'content-type': 'text/plain' },
