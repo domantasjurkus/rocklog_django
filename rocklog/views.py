@@ -1,3 +1,5 @@
+import base64
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -52,7 +54,7 @@ def saved_songs(request):
 
 
 @login_required
-def toggle_save_song(request, song_id):
+def toggle_save(request, song_id):
     user_id = request.user.id
 
     saved_song = SavedSong.objects.filter(user_id=user_id).filter(song_id=song_id)
@@ -69,6 +71,25 @@ def toggle_save_song(request, song_id):
 
 def videoid(request, artist, song):
     return HttpResponse(getYoutubeId(artist, song))
+
+
+# TODO: force http basic auth
+# @login_required
+def upload_new_song(request, payload):
+    data = base64.b64decode(payload)
+    data = data.decode("utf-8") 
+    artist, song, date, hour = data.split('\n')
+    
+    # TODO: clean up and save
+    print()
+    print(artist)
+    print(song)
+    print(date)
+    print(hour)
+    print()
+
+    return HttpResponse('new song uploaded')
+
 
     # raise http404 error
     # question = get_object_or_404(Question, pk=question_id)
