@@ -24,6 +24,7 @@ environ.Env.read_env()
 
 # django key
 SECRET_KEY = env('DJANGO_PRODUCTION_KEY')
+PYTHONANYWHERE_SUBDOMAIN = 'rocklog'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,7 +32,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     'domantasjurkus.pythonanywhere.com',
-    'rocklog.pythonanywhere.com',
+    f'{PYTHONANYWHERE_SUBDOMAIN}.pythonanywhere.com',
 ]
 
 
@@ -131,7 +132,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = "/home/domantasjurkus/rocklog/static"
+STATIC_ROOT = f'/home/{PYTHONANYWHERE_SUBDOMAIN}/rocklog/static'
 
 # social django
 AUTHENTICATION_BACKENDS = (
