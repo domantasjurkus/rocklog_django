@@ -1,12 +1,12 @@
 import base64
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseForbidden
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.contrib import auth
+from django.contrib.auth import authenticate
 
 from rocklog.models import Song, StreamEntry, SavedSong
 from rocklog.controllers.youtube import getYoutubeId
@@ -73,20 +73,40 @@ def videoid(request, artist, song):
     return HttpResponse(getYoutubeId(artist, song))
 
 
-# TODO: force http basic auth
-# @login_required
+def is_authenticated_by_uploading_account(request):
+    if 'HTTP_AUTHORIZATION' in request.META:
+        auth = request.META['HTTP_AUTHORIZATION'].split()
+        if len(auth) == 2:
+            if auth[0].lower() == "basic":
+                uname, passwd = base64.b64decode(auth[1]).split(':')
+                user = authenticate(username=uname, password=passwd)
+                # not sure if need is_active
+                if user is not None and user.is_active:
+                    # request.user = user
+                    # return view(request, *args, **kwargs)
+                    return True
+    return False
+
+
 def upload_new_song(request, payload):
+    if !is_authenticated_by_uploading_account(request):
+        return HttpResponseForbidden()
+
     data = base64.b64decode(payload)
     data = data.decode("utf-8") 
     artist, song, date, hour = data.split('\n')
+
+    print(request.META['HTTP_AUTHORIZATION'])
     
-    # TODO: clean up and save
+    # TODO: PascalCase Artist
     print()
     print(artist)
     print(song)
     print(date)
     print(hour)
     print()
+
+
 
     return HttpResponse('new song uploaded')
 
