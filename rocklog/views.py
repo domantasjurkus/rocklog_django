@@ -89,7 +89,7 @@ def is_authenticated_by_uploading_account(request):
 
 
 def upload_new_song(request, payload):
-    if !is_authenticated_by_uploading_account(request):
+    if not is_authenticated_by_uploading_account(request):
         return HttpResponseForbidden()
 
     data = base64.b64decode(payload)
