@@ -12,6 +12,10 @@ class Song(models.Model):
     def __str__(self):
         return f"{self.artist} - {self.song}"
 
+    
+    def get(artist, song):
+        return Song.objects.filter(artist=artist).filter(song=song)
+
     # https://stackoverflow.com/questions/1737017/django-auto-now-and-auto-now-add/1737078#1737078
     # def save(self):
     #     self.create_at = timezone.now()
@@ -19,7 +23,7 @@ class Song(models.Model):
 
 
 class StreamEntry(models.Model):
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=timezone.now())
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
 
     class Meta:

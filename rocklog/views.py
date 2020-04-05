@@ -1,29 +1,14 @@
-import base64
-
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseForbidden
 from django.urls import reverse
 from django.views import generic
-from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate
 
 from rocklog.models import Song, StreamEntry, SavedSong
 from rocklog.controllers.youtube import getYoutubeId
 
-
-def decorate_with_saved_all(stream):
-    for stream_entry in stream:
-        stream_entry.saved = True
-    return stream
-
-
-def decorate_with_saved_user(stream, saved_songs):
-    for entry in stream:
-        for saved_song in saved_songs:
-            if entry.song_id == saved_song.song_id:
-                entry.saved = True
-    return stream
+from .utils.saved import decorate_with_saved_all, decorate_with_saved_user
+from .utils.upload import extact_song_from_upload, is_authenticated_by_uploading_account, capitalize_artist
 
 def index(request):
     stream = StreamEntry.objects.select_related('song').order_by('-date')[:15]
@@ -58,9 +43,9 @@ def toggle_save(request, song_id):
     user_id = request.user.id
 
     saved_song = SavedSong.objects.filter(user_id=user_id).filter(song_id=song_id)
-    is_song_saved = len(saved_song) > 0
+    is_song_saved_already = len(saved_song) > 0
     
-    if (is_song_saved):
+    if (is_song_saved_already):
         saved_song.delete()
     else:
         s = SavedSong(song_id=song_id, user_id=user_id)
@@ -73,42 +58,22 @@ def videoid(request, artist, song):
     return HttpResponse(getYoutubeId(artist, song))
 
 
-def is_authenticated_by_uploading_account(request):
-    if 'HTTP_AUTHORIZATION' in request.META:
-        auth = request.META['HTTP_AUTHORIZATION'].split()
-        if len(auth) == 2:
-            if auth[0].lower() == "basic":
-                uname, passwd = base64.b64decode(auth[1]).split(':')
-                user = authenticate(username=uname, password=passwd)
-                # not sure if need is_active
-                if user is not None and user.is_active:
-                    # request.user = user
-                    # return view(request, *args, **kwargs)
-                    return True
-    return False
-
-
-def upload_new_song(request, payload):
+def upload_new_song(request, b64_payload):
     if not is_authenticated_by_uploading_account(request):
         return HttpResponseForbidden()
 
-    data = base64.b64decode(payload)
-    data = data.decode("utf-8") 
-    artist, song, date, hour = data.split('\n')
+    artist, song_name, date, hour = extact_song_from_upload(b64_payload)
 
-    print(request.META['HTTP_AUTHORIZATION'])
-    
-    # TODO: PascalCase Artist
-    print()
-    print(artist)
-    print(song)
-    print(date)
-    print(hour)
-    print()
+    song = Song.get(artist, song_name).first()
 
+    if not song:
+        song = Song(artist=artist, song=song_name)
+        song.save()
 
+    e = StreamEntry(song=song)
+    e.save()
 
-    return HttpResponse('new song uploaded')
+    return HttpResponse('new song entry uploaded')
 
 
     # raise http404 error

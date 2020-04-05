@@ -118,13 +118,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Vilnius'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -159,6 +159,3 @@ LOGIN_REDIRECT_URL = '/'
 
 # LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = '/'
-
-# Enables iframe from rocklog.info.tm to pythonanywhere
-X_FRAME_OPTIONS = 'ALLOW'
