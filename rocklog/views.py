@@ -75,9 +75,9 @@ def upload_new_song(request, b64_payload):
     if StreamEntry.is_latest_entry_already_added(song):
         return HttpResponse('entry already uploaded - nothing to do')
 
-    entry_date = format_entry_date(date, hour)
-
-    entry = StreamEntry(song=song, date=entry_date)
+    # entry_date = format_entry_date(date, hour)
+    # entry = StreamEntry(song=song, date=entry_date)
+    entry = StreamEntry(song=song)
     entry.save()
 
     return HttpResponse('new song entry uploaded')
