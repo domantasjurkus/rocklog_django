@@ -11,7 +11,7 @@ from .utils.saved import decorate_with_saved_all, decorate_with_saved_user
 from .utils.upload import extact_song_from_upload, is_authenticated_by_uploading_account, capitalize_artist
 
 def index(request):
-    stream = StreamEntry.objects.select_related('song').order_by('date')[:15]
+    stream = StreamEntry.objects.select_related('song').order_by('-date')[:15]
     stream = stream.select_related('song')
 
     if request.user.id:
