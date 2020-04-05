@@ -70,8 +70,11 @@ def upload_new_song(request, b64_payload):
         song = Song(artist=artist, song=song_name)
         song.save()
 
-    e = StreamEntry(song=song)
-    e.save()
+    if StreamEntry.is_latest_entry_already_added(song):
+        return HttpResponse('entry already uploaded - nothing to do')
+
+    entry = StreamEntry(song=song)
+    entry.save()
 
     return HttpResponse('new song entry uploaded')
 
