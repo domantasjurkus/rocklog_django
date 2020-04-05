@@ -36,7 +36,12 @@ class StreamEntry(models.Model):
     def is_latest_entry_already_added(song):
         last_entry = StreamEntry.objects.last()
         
-        return last_entry.song == song
+        if last_entry:
+            if last_entry.song:
+                if last_entry.song == song:
+                    return True
+        
+        return False
 
 
 class SavedSong(models.Model):
