@@ -32,6 +32,10 @@ class StreamEntry(models.Model):
     def __str__(self):
         return f"{self.date} - {self.song.artist} - {self.song.song}"
 
+    
+    def is_latest_entry_already_added(song):
+        return StreamEntry.objects.order_by('-id').filter(song=song).first()
+
 
 class SavedSong(models.Model):
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
