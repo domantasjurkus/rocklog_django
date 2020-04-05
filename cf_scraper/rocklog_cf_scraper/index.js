@@ -18,16 +18,6 @@ function split_out_datetime(html) {
   return b.trim()
 }
 
-// HTTPBasicAuth
-// async function send_to_rocklog(payload) {
-//   const user = ROCKLOG_UPLOAD_USERNAME
-//   const password = ROCKLOG_UPLOAD_PASSWORD
-
-//   const URL = `https://${user}:${password}@${ROCKLOG_DOMAIN}/${UPLOAD_PATH}/${payload}`
-//   console.log(URL)
-//   await fetch(URL)
-// }
-
 async function send_to_rocklog(payload) {
   const URL = `https://${ROCKLOG_DOMAIN}/${UPLOAD_PATH}/${payload}`
   console.log(URL)
