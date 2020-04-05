@@ -23,7 +23,7 @@ class Song(models.Model):
 
 
 class StreamEntry(models.Model):
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField()
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
 
     class Meta:
