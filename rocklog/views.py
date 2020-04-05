@@ -8,7 +8,7 @@ from rocklog.models import Song, StreamEntry, SavedSong
 from rocklog.controllers.youtube import getYoutubeId
 
 from .utils.saved import decorate_with_saved_all, decorate_with_saved_user
-from .utils.upload import extact_song_from_upload, is_authenticated_by_uploading_account, capitalize_artist
+from .utils.upload import extact_song_from_upload, is_authenticated_by_uploading_account, capitalize_artist, format_entry_date
 
 def index(request):
     stream = StreamEntry.objects.select_related('song').order_by('-date')[:15]
@@ -64,16 +64,20 @@ def upload_new_song(request, b64_payload):
 
     artist, song_name, date, hour = extact_song_from_upload(b64_payload)
 
-    song = Song.get(artist, song_name).first()
+    existing_song = Song.get(artist, song_name).first()
 
-    if not song:
+    if not existing_song:
         song = Song(artist=artist, song=song_name)
         song.save()
+    else:
+        song = existing_song
 
     if StreamEntry.is_latest_entry_already_added(song):
         return HttpResponse('entry already uploaded - nothing to do')
 
-    entry = StreamEntry(song=song)
+    entry_date = format_entry_date(date, hour)
+
+    entry = StreamEntry(song=song, date=entry_date)
     entry.save()
 
     return HttpResponse('new song entry uploaded')

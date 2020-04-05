@@ -1,4 +1,5 @@
 import base64
+from datetime import datetime
 
 from django.contrib.auth import authenticate
 
@@ -39,3 +40,9 @@ def capitalize_artist(artist):
 
 def strip_suffix(song):
     return song.split(SUFFIX)[0]
+
+
+def format_entry_date(date, hour):
+    datetime_str = " ".join([date, hour])
+
+    return datetime.strptime(datetime_str, '%Y-%m-%d %H:%M')
