@@ -1,6 +1,8 @@
 # Rocklog
 Webapp for scraping and saving rock.lt.
 
+<img src="img/splash.jpg" width="400">
+
 ## Setup
 
 1. Have Python 3.6+
