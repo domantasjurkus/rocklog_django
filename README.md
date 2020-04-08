@@ -11,7 +11,8 @@ Webapp for scraping and saving rock.lt.
 
 ## Additional Setup
 
-- An account for uploading new songs needs to be created.
+- A webapp account for uploading new songs needs to be created.
+- A Google app needs to be registered for login + YouTube access.
 
 ## Song Scraping
 
