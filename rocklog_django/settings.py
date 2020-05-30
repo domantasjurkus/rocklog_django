@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rocklog.apps.RocklogConfig',
     'social_django',
+    'rest_framework',
+    'rocklog_react'
 ]
 
 MIDDLEWARE = [
@@ -134,6 +136,10 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = f'/home/{PYTHONANYWHERE_SUBDOMAIN}/rocklog/static'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "rocklog_react/build"),
+]
+
 # social django
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend', # admin panel
@@ -159,3 +165,10 @@ LOGIN_REDIRECT_URL = '/'
 
 # LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = '/'
+
+# disable browsable renderer
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}

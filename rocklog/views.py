@@ -3,12 +3,14 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
+from rest_framework import generics
 
 from rocklog.models import Song, StreamEntry, SavedSong
 from rocklog.controllers.youtube import getYoutubeId
 
 from .utils.saved import decorate_with_saved_all, decorate_with_saved_user
 from .utils.upload import extact_song_from_upload, is_authenticated_by_uploading_account, capitalize_artist, format_entry_date
+from .serializers import StreamEntrySerializer
 
 def index(request):
     stream = StreamEntry.objects.select_related('song').order_by('-date')[:15]
@@ -92,3 +94,9 @@ def upload_new_song(request, b64_payload):
     # # with POST data. This prevents data from being posted twice if a
     # # user hits the Back button.
     # return HttpResponseRedirect(reverse('pollsapp:results', args=(question.id,)))
+
+
+# Below is experimentation with rest API + React
+class StreamEntryList(generics.ListCreateAPIView):
+    queryset = StreamEntry.objects.select_related('song').order_by('-date')[:15]
+    serializer_class = StreamEntrySerializer
