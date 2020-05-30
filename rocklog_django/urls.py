@@ -8,6 +8,8 @@ urlpatterns = [
     path('auth/', include('social_django.urls', namespace='social')),
     # path(r'^oauth/', include('social_django.urls', namespace='social')),
     # path('social-auth/', include('social_django.urls', namespace="social")),
+
+    path('', include('rocklog_react.urls'))
 ]
 
 # LOGIN_URL = 'login'
