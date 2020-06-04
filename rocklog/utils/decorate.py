@@ -10,3 +10,9 @@ def decorate_with_saved_user(stream, saved_songs):
             if entry.song_id == saved_song.song_id:
                 entry.saved = True
     return stream
+
+
+def decorate_with_playtime(stream): 
+    for entry in stream:
+        entry.playtime = '%d:%d' % (entry.date.hour, entry.date.minute)
+    return stream
