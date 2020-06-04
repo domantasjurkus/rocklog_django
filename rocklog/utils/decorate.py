@@ -14,5 +14,5 @@ def decorate_with_saved_user(stream, saved_songs):
 
 def decorate_with_playtime(stream): 
     for entry in stream:
-        entry.playtime = '%d:%d' % (entry.date.hour, entry.date.minute)
+        entry.playtime = '{:02d}:{:02d}'.format(entry.date.hour, entry.date.minute)
     return stream
