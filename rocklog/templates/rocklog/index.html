@@ -31,8 +31,7 @@
                     </a>
                 </h1>
                 <div class="row center">
-                    <h5 class="header col s12 light white-text text-shadow">Naujausios dainos iš <a class="red-text"
-                            href="https://rockfm.lt/">ROCK FM</a></h5>
+                    <h5 class="header col s12 light white-text text-shadow">Naujausios dainos iš <a class="red-text" href="https://rockfm.lt/"><u>ROCK FM</u></a></h5>
                 </div>
                 <br><br>
             </div>
@@ -61,6 +60,8 @@
                     {% for stream_entry in stream %}
                         <li>
                             <div class="song collapsible-header red darken-4 white-text">
+                                <span>{{ stream_entry.playtime }}</span>
+                                &nbsp
                                 <b class="artist">{{ stream_entry.song.artist }}</b> -
                                 <span class="song">{{ stream_entry.song.song }}</span>
                                 <a href="javascript:;" class="secondary-content" id="{{ stream_entry.song.id }}">
@@ -101,7 +102,7 @@
 
         <div class="footer-copyright">
             <div class="container">
-                <a href="https://github.com/domantasjurkus" class="white-text" id="dj-link">Domantas Jurkus</a>
+                <a href="https://github.com/domantasjurkus" class="white-text" id="dj-link"><u>Domantas Jurkus</u>  </a>
             </div>
         </div>
     </footer>

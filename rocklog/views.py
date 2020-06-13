@@ -8,9 +8,20 @@ from rest_framework import generics
 from rocklog.models import Song, StreamEntry, SavedSong
 from rocklog.controllers.youtube import getYoutubeId
 
-from .utils.saved import decorate_with_saved_all, decorate_with_saved_user
-from .utils.upload import extact_song_from_upload, is_authenticated_by_uploading_account, capitalize_artist, format_entry_date
 from .serializers import StreamEntrySerializer
+
+from .utils.decorate import (
+    decorate_with_saved_all,
+    decorate_with_saved_user,
+    decorate_with_playtime
+)
+from .utils.upload import (
+    extact_song_from_upload,
+    is_authenticated_by_uploading_account,
+    capitalize_artist,
+    format_entry_date
+)
+
 
 def index(request):
     stream = StreamEntry.objects.select_related('song').order_by('-date')[:15]
@@ -19,6 +30,8 @@ def index(request):
     if request.user.id:
         saved_songs = SavedSong.objects.filter(user_id=request.user.id).select_related('song')
         stream = decorate_with_saved_user(stream, saved_songs)
+    
+    stream = decorate_with_playtime(stream)
 
     context = {
         'header_link_text': 'Išsaugotos dainos',
