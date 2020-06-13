@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
+import Header from '../Header/Header.jsx';
+import Footer from '../Footer/Footer.jsx';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +16,10 @@ class App extends Component {
   }
 
   render() {
-    return <p>{this.state.placeholder}</p>;
+    return <>
+      {/* <Header /> */}
+      <Footer />
+    </>;
   }
 }
 
