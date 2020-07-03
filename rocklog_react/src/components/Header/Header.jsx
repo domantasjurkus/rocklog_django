@@ -1,8 +1,13 @@
 import React from 'react';
 
+const styleProp = {
+  backgroundImage: 'url(\'/static/rocklog/img/bg_darken.jpg\')',
+};
+
 const Header = () => (
-  <div style="background: url({% static 'rocklog/img/bg_darken.jpg' %})"
-  class="section no-pad-bot parallax-container background responsive-img" id="index-banner">
+  <div style={styleProp}
+        class="section no-pad-bot parallax-container background responsive-img"
+        id="index-banner">
   <div class="container">
     <br />
     <br />
