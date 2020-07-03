@@ -16,7 +16,7 @@ const Header = () => (
     </h1>
     <div class="row center">
       <h5 class="header col s12 light white-text text-shadow">Naujausios dainos iš
-        <a class="red-text" href="https://rockfm.lt/">ROCK FM</a>
+        <a class="red-text" href="https://rockfm.lt/"> ROCK FM</a>
       </h5>
     </div>
     <br />
