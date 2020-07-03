@@ -1,11 +1,11 @@
 {
-  "name": "rocklog_react",
+  "name": "react",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development ./src/index.js --output ./static/rocklog_react/build/main.js",
-    "build": "webpack --mode production ./src/index.js --output ./static/rocklog_react/build/main.js"
+    "dev": "webpack --mode development ./src/index.js --output ./static/react/build/main.js",
+    "build": "webpack --mode production ./src/index.js --output ./static/react/build/main.js"
   },
   "keywords": [],
   "author": "",

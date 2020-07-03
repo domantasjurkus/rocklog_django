@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'rocklog.apps.RocklogConfig',
     'social_django',
     'rest_framework',
-    'rocklog_react'
+    'react'
 ]
 
 MIDDLEWARE = [
@@ -138,7 +138,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = f'/home/{PYTHONANYWHERE_SUBDOMAIN}/rocklog/static'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "rocklog_react/build"),
+    os.path.join(BASE_DIR, "react/build"),
 ]
 
 # social django
