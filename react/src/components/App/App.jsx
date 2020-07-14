@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 import Header from '../Header/Header.jsx';
+import Body from '../Body/Body.jsx';
 import Footer from '../Footer/Footer.jsx';
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
   render() {
     return <>
       <Header />
+      <Body />
       <Footer />
     </>;
   }
