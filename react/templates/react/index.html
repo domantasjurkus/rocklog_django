@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+	<title>Rocklog React</title>
+
+	<link rel="icon" href="{% static 'favicon.ico' %}">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="{% static 'rocklog/css/materialize.min.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static 'rocklog/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+<body class="grey darken-4">
+	<div id="app"></div>
+</body>
+<script src="{% static "react/build/main.js" %}"></script>
+<script src="{% static 'rocklog/js/jquery-2.1.1.min.js' %}"></script>
+<script src="{% static 'rocklog/js/materialize.min.js' %}"></script>
+<script src="{% static 'rocklog/js/index.js' %}"></script>
+{% comment %} <script src="https://www.youtube.com/iframe_api"></script> {% endcomment %}
+</html>
