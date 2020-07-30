@@ -62,13 +62,16 @@
                                 &nbsp
                                 <b class="artist">{{ stream_entry.song.artist }}</b> -
                                 <span class="song">{{ stream_entry.song.song }}</span>
-                                <a href="javascript:;" class="secondary-content" id="{{ stream_entry.song.id }}">
-                                    {% if stream_entry.saved %}
-                                        <i class="material-icons star-icon stared">grade</i>
-                                    {% else %}
-                                        <i class="material-icons star-icon">grade</i>
-                                    {% endif %}
-                                </a>
+                                
+                                {% if user.is_authenticated %}
+                                    <a href="javascript:;" class="secondary-content save-icon-clickable" id="{{ stream_entry.song.id }}">
+                                        {% if stream_entry.saved %}
+                                            <i class="material-icons star-icon stared">grade</i>
+                                        {% else %}
+                                            <i class="material-icons star-icon">grade</i>
+                                        {% endif %}
+                                    </a>
+                                {% endif %}
                             </div>
                             <div class="collapsible-body grey darken-4">
                                 <div class="video-container" id="video-container"></div>
