@@ -1,138 +1,108 @@
 // Globals required for YouTube API
-var player;
-var done = false;
+var player
+var done = false
 
-// Global function for YouTube API
-/*function onYouTubeIframeAPIReady() {
-    makeNewPlayer('vjqtHxuvwVg');
-}*/
-
-var PROTOCOL = `${window.location.protocol}//`;
+var PROTOCOL = `${window.location.protocol}//`
 
 function makeNewPlayer(id) {
-    player = new YT.Player('player', {
-        height: '390',
-        width: '640',
-        videoId: id,
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-        }
-    });
+  player = new YT.Player('player', {
+    height: '390',
+    width: '640',
+    videoId: id,
+    events: {
+      'onReady': onPlayerReady
+    }
+  })
 }
 
 function onPlayerReady(event) {
-    event.target.playVideo();
-}
-
-
-function onPlayerStateChange(event) {
-    /*if (event.data == YT.PlayerState.PLAYING && !done) {
-     setTimeout(stopVideo, 6000);
-     done = true;
-     }*/
+  event.target.playVideo()
 }
 
 function stopVideo() {
-    player.stopVideo();
+  player.stopVideo()
+}
+
+function toggleStarYellow(icon) {
+  icon.hasClass('stared') ? icon.removeClass('stared') : icon.addClass('stared')
+}
+
+function isRowBeingClosed(elem) {
+  return elem.hasClass("active")
+}
+
+function appendPlayerToRowBody(rowBody) {
+  rowBody.find(".video-container").append($("#player"))
+}
+
+function pauseVideo(player) {
+  try {
+    player.pauseVideo()
+  } catch (e) {}
+}
+
+function destroyPreviousPlayer(player) {
+  try {
+    player.destroy()
+  } catch (e) {}
+}
+
+function fetchVideoAndAppend(rowBody, player, artist, song) {
+  $.ajax({
+    url: encodeURI(PROTOCOL + window.location.host + "/videoid/" + artist + "/" + song),
+    success: function(id) {
+      appendPlayerToRowBody(rowBody)
+      destroyPreviousPlayer(player)
+      makeNewPlayer(id)
+    }
+  })
+}
+
+function saveSongRequest(songId, icon) {
+  $.ajax({
+    url: encodeURI(PROTOCOL + window.location.host + "/toggle_save/" + songId),
+    success: function(data) {
+      toggleStarYellow(icon)
+    }
+  })
 }
 
 (function ($) {
 
-    // On document ready
-    $(function () {
+  // On document ready
+  $(function () {
+    var documentRoot = $("#document_root").attr("content")
+    var rows = $(".collapsible-header")
+    var stars = $(".star-icon")
 
-        var documentRoot = $("#document_root").attr("content");
-        var row = $(".collapsible-header");
+    rows.click(function(e) {
+      var rowElem = $(this)
+      var song = rowElem.find(".song").html()
+      var artist = rowElem.find(".artist").html()
+      var rowBody = rowElem.next()
 
-        // Attach onClick event for every row
-        row.click(function (e) {
-            var song = $(this).find(".song").html();
-            var artist = $(this).find(".artist").html();
-            var line = $(this).next();
+      if (isRowBeingClosed(rowElem)) {
+        pauseVideo(player)
+      } else {
+        fetchVideoAndAppend(rowBody, player, artist, song)
+      }
+    })
 
-            // If the bar is being closed
-            if ($(this).hasClass("active")) {
-                try { player.pauseVideo(); }
-                catch (e) { }
+    stars.click(function(e) {
+      e.stopPropagation()
 
-                // If the bar is being opened
-            } else {
+      var icon = $(this)
+      var songId = $(this).parent().attr("id")
 
-                // Make a request to this app for the video id
-                $.ajax({
-                    url: encodeURI(PROTOCOL + window.location.host + "/videoid/" + artist + "/" + song),
-                    // data: {
-                    //     "song": song,
-                    //     "artist": artist
-                    // },
-                    success: function (id) {
-                        line.find(".video-container").append($("#player"));
+      saveSongRequest(songId, icon)
+    })
 
-                        // Destroy the previous player
-                        try {
-                            player.destroy();
-                        } catch (e) {
+    // For the collections
+    $('.collapsible').collapsible({
+      accordion: false
+    })
 
-                        }
+    $('.parallax').parallax()
+  })
 
-                        makeNewPlayer(id);
-                        // $("#player").css("visibility", "visible");
-                        // player.loadVideoById(id);
-                    }
-                });
-            }
-        });
-
-        // On star click
-        $(".star-icon").click(function (e) {
-            e.stopPropagation();
-
-            var icon = $(this);
-            var song_id = $(this).parent().attr("id");
-
-            // Save song
-            $.ajax({
-                url: encodeURI(PROTOCOL + window.location.host + "/toggle_save/" + song_id),
-                success: function (data) {
-
-                }, error: function (data) {
-                    icon.removeClass('stared');
-                    // Gets triggered when tapping 2 stars fast
-                    // Materialize.toast('Prisijunk su Facebook ir išsaugok dainas!', 2000);
-                }
-            });
-
-            // Mark star yellow
-            icon.hasClass('stared') ? icon.removeClass('stared') : icon.addClass('stared');
-
-        });
-
-        // For the collections
-        $('.collapsible').collapsible({
-            accordion: false
-        });
-        $('.parallax').parallax();
-
-    });
-
-})(jQuery);
-
-// function getID(root, artist, song) {
-
-//     $.ajax({
-//         url: root + "/videoid",
-//         data: {
-//             "song": song,
-//             "artist": artist
-//         },
-//         success: function (id) {
-//             return id;
-//         }
-//     });
-
-// }
-
-function markStars() {
-
-}
+})(jQuery)
