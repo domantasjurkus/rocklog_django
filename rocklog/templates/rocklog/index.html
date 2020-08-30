@@ -2,22 +2,18 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
     <link rel="icon" href="{% static 'favicon.ico' %}">
-
     <title>RockLog</title>
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{% static 'rocklog/css/materialize.min.css' %}" type="text/css" rel="stylesheet"
         media="screen,projection" />
     <link href="{% static 'rocklog/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static 'rocklog/css/cookies.css' %}" type="text/css" rel="stylesheet" />
 </head>
-
 <body class="grey darken-4">
-
     <main>
         <div style="background: url({% static 'rocklog/img/bg_darken.jpg' %})"
             class="section no-pad-bot parallax-container background responsive-img" id="index-banner">
@@ -34,7 +30,6 @@
                 <br><br>
             </div>
         </div>
-
         <div class="row grey darken-4" style="min-height:500px">
             <div class="col s12 m10 l5 offset-m1 offset-l2">
                 <br />
@@ -62,7 +57,6 @@
                                 &nbsp
                                 <b class="artist">{{ stream_entry.song.artist }}</b> -
                                 <span class="song">{{ stream_entry.song.song }}</span>
-                                
                                 {% if user.is_authenticated %}
                                     <a href="javascript:;" class="secondary-content save-icon-clickable" id="{{ stream_entry.song.id }}">
                                         {% if stream_entry.saved %}
@@ -85,14 +79,15 @@
                             </li>
                         </ul>
                     {% endif %}
-
                 </ul>
             </div>
         </div>
-
         <div id="player"></div>
     </main>
-
+    <div class="cookie-banner" style="display: none">
+        <p>By using our website, you agree to our <a href="cookies">cookie policy</a></p>
+        <button class="close" style="margin: 0 5px">&times;</button>
+    </div>
     <footer class="page-footer black">
         <div class="footer-copyright container">
             <div class="row">
@@ -103,12 +98,11 @@
             </div>
         </div>
     </footer>
-
     <script src="{% static 'rocklog/js/jquery-2.1.1.min.js' %}"></script>
     <script src="{% static 'rocklog/js/materialize.min.js' %}"></script>
+    <script src="{% static 'rocklog/js/materialize.min.js' %}"></script>
     <script src="{% static 'rocklog/js/index.js' %}"></script>
+    <script src="{% static 'rocklog/js/cookies.js' %}"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
-
 </body>
-
 </html>
