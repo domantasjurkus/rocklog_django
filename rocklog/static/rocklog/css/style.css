@@ -78,10 +78,6 @@ footer.page-footer {
     padding-top: 0;
 }
 
-.dj-link {
-    float: right;
-}
-
 .dj-link:hover {
     text-decoration: underline;
 }
