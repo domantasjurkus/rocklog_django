@@ -41,6 +41,10 @@ def index(request):
     return render(request, 'rocklog/index.html', context)
 
 
+def cookies(request):
+    return render(request, 'rocklog/cookies.html')
+
+
 @login_required
 def saved_songs(request):
     user_id = request.user.id
